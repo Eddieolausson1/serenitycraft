@@ -7,6 +7,38 @@
 <h2>Play now on play.serenitycraft.net!</h2>
 <div class="shop-button">
 <button onclick=" window.location.href=" 'https://shop.serenitycraft.net/' ">Go to our Shop</button>
+  <h1>Server Status</h1>
+<p id="serverStatus"></p>
+
+<script>
+    function checkServerStatus() {
+        const serverUrl = 'https://play.serenitycraft.net';
+
+        fetch(serverUrl)
+            .then(response => {
+                if (response.ok) {
+                    updateServerStatus('Server is UP');
+                } else {
+                    updateServerStatus('Server is DOWN');
+                }
+            })
+            .catch(error => {
+                console.error('Error checking server status:', error);
+                updateServerStatus('Unable to determine server status');
+            });
+    }
+
+    function updateServerStatus(status) {
+        const statusElement = document.getElementById('serverStatus');
+        statusElement.textContent = status;
+    }
+
+    // Initial check
+    checkServerStatus();
+
+    // Check every 60 seconds (adjust as needed)
+    setInterval(checkServerStatus, 60000);
+</script>
 </div>
 <style>
 
